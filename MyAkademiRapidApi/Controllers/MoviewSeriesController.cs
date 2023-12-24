@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyAkademiRapidApi.Models;
 using Newtonsoft.Json;
+using static System.Net.WebRequestMethods;
 
 
 namespace MyAkademiRapidApi.Controllers
@@ -17,6 +18,7 @@ namespace MyAkademiRapidApi.Controllers
                 Method = HttpMethod.Get,
                 RequestUri = new Uri("https://imdb-top-100-movies.p.rapidapi.com/"),
                 Headers =
+                 
     {
         { "X-RapidAPI-Key", "fcc917b06amshef0279bc7db36f7p13a42djsnea390bd6c306" },
         { "X-RapidAPI-Host", "imdb-top-100-movies.p.rapidapi.com" },
@@ -30,6 +32,30 @@ namespace MyAkademiRapidApi.Controllers
                 return View(values);
             }
           
+        }
+
+
+        public async Task<IActionResult> Index2()
+        {
+           
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://imdb-top-100-movies.p.rapidapi.com/"),
+                Headers =
+    {
+        { "X-RapidAPI-Key", "fcc917b06amshef0279bc7db36f7p13a42djsnea390bd6c306" },
+        { "X-RapidAPI-Host", "imdb-top-100-movies.p.rapidapi.com" },
+    },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<MoviesViewModel>>(body);
+                return View(values);
+            }
         }
     }
 }

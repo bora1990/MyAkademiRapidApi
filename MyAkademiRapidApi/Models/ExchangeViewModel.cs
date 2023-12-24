@@ -11,7 +11,7 @@
         public class Exchange_Rates
         {
             public string exchange_rate_buy { get; set; }
-            public string currency { get; set; }
+            public string currency { get; set; }  
         }
 
     }

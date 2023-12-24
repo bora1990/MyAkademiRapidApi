@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyAkademiRapidApi.Models;
 using Newtonsoft.Json;
+using static System.Net.WebRequestMethods;
 
 namespace MyAkademiRapidApi.Controllers
 {
@@ -8,6 +9,7 @@ namespace MyAkademiRapidApi.Controllers
     {
         public async Task<IActionResult> Index(string city)
         {
+            
             if (!string.IsNullOrEmpty(city))
             {
 
@@ -17,6 +19,7 @@ namespace MyAkademiRapidApi.Controllers
                     Method = HttpMethod.Get,
                     RequestUri = new Uri($"https://booking-com.p.rapidapi.com/v1/hotels/locations?name={city}&locale=en-gb"),
                     Headers =
+
     {
         { "X-RapidAPI-Key", "fcc917b06amshef0279bc7db36f7p13a42djsnea390bd6c306" },
         { "X-RapidAPI-Host", "booking-com.p.rapidapi.com" },
@@ -27,9 +30,9 @@ namespace MyAkademiRapidApi.Controllers
                 {
                     response.EnsureSuccessStatusCode();
                     var body = await response.Content.ReadAsStringAsync();
-                    var value=JsonConvert.DeserializeObject<List<SearchLocationViewModel>>(body);
+                    var value = JsonConvert.DeserializeObject<List<SearchLocationViewModel>>(body);
 
-                    return View(value.ToList());
+                    return View(value.FirstOrDefault()); 
                 }
             }
             else
@@ -52,10 +55,13 @@ namespace MyAkademiRapidApi.Controllers
                     var body = await response.Content.ReadAsStringAsync();
                     var value = JsonConvert.DeserializeObject<List<SearchLocationViewModel>>(body);
 
-                    return View(value.ToList());
+                    return View(value.FirstOrDefault());
                 }
 
             }
         }
+
+
     }
 }
+

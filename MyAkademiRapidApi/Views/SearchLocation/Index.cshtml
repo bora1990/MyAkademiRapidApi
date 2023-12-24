@@ -1,4 +1,4 @@
-﻿@model List<SearchLocationViewModel>
+﻿@model SearchLocationViewModel
 @{
     Layout = null;
 }
@@ -13,23 +13,18 @@
     @using (Html.BeginForm("Index", "SearchLocation", FormMethod.Get))
     {
         <label>Şehir Adını Giriniz</label>
-        <input type="text" class="form-control" name="city" />
+        <input type="text" class="form-control" />
+        <input type="hidden" value="@Model.dest_id" name="lokasyon"/>
         <br />
         <button>Şehir Destination ID Getir</button>
     }
     <hr />
-    <table class="table table-hover">
-
-        @foreach(var item in Model)
-        {
+    <table class="table table-hover">  
             <tr>
 
-                <td>@item.dest_id</td>
-
+                <td>@Model.dest_id</td>
             </tr>
-        }
-
+        
     </table>
-
 
 </div>

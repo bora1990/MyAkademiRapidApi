@@ -6,6 +6,20 @@
 <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 <div class="container">
 
+    <label>Yerel Kur Seçiniz.</label>
+  
+    @using (Html.BeginForm("Index", "Exchange", FormMethod.Post))
+    {
+       
+        <select asp-items="@ViewBag.v" name="kur">
+                  
+        </select>
+        <br />
+         
+        <button type="submit">Gönder</button>
+    }
+    <hr />
+
     <table class="table table-bordered">
 
         <tr>
@@ -22,8 +36,5 @@
             </tr>
         }
 
-
     </table>
-
-
 </div>
