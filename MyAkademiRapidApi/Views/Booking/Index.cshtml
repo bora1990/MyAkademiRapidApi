@@ -1,53 +1,419 @@
-﻿@model List<BookingApiViewModel.Result>
-@{
+﻿@{
     Layout = null;
     var i = 0;
 }
 
-<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+@* <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" /> *@
 
 
-<div class="container">
-    <h2>Oteller</h2>
-    
-    <table class="table table-hover">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Harborlights - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <tr>
-            <th>#</th>
-            <th>Otel Adı</th>
-            <th>Şehir Adı</th>
-            <th>Adres</th>
-            <th>Mesafe</th>
-            <th>Bölge (Yukarıda Belirtilen ID Olarak)</th>
-            <th>Konuşulan Dil</th>
-            <th>Resim</th>
-            <th>Fiyat</th>
-            <th>Değerlendirme Puanı</th>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="~/harbor-lights-master/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="~/harbor-lights-master/css/animate.css">
 
+    <link rel="stylesheet" href="~/harbor-lights-master/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/harbor-lights-master/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/harbor-lights-master/css/magnific-popup.css">
 
-        </tr>
-        @foreach (var item in Model)
-        {
-            i++;
-            <tr>
-                <td>@i</td>
-                <td>@item.hotel_name</td>
-                <td>@item.city</td>
-                <td>@item.address</td>
-                <td>@item.distance</td>
-                <td>@item.district</td>
-                <td>@item.default_language</td>
-                <td><img src="@item.main_photo_url" width="80px" /> </td>
-                <td>@item.min_total_price</td>
-                <td>@item.address</td>
+    <link rel="stylesheet" href="~/harbor-lights-master/css/aos.css">
+
+    <link rel="stylesheet" href="~/harbor-lights-master/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="~/harbor-lights-master/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/harbor-lights-master/css/jquery.timepicker.css">
 
 
-            </tr>
-        }
-    </table>
+    <link rel="stylesheet" href="~/harbor-lights-master/css/flaticon.css">
+    <link rel="stylesheet" href="~/harbor-lights-master/css/icomoon.css">
+    <link rel="stylesheet" href="~/harbor-lights-master/css/style.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Harbor<span>lights</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a href="/Booking/Index/" class="nav-link">Anasayfa</a></li>
+                    <li class="nav-item"><a href="/Booking/AboutUs/" class="nav-link">Hakkımızda</a></li>
+                    <li class="nav-item"><a href="/Booking/Testimonials/" class="nav-link">Referanslar</a></li>
+                    <li class="nav-item"><a href="/Booking/Contact/" class="nav-link">İletişim</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END nav -->
+    <div class="hero">
+        <section class="home-slider owl-carousel">
+            <div class="slider-item" style="background-image:url(/harbor-lights-master/images/bg_1.jpg);">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row no-gutters slider-text align-items-center justify-content-end">
+                        <div class="col-md-6 ftco-animate">
+                            <div class="text">
+                                <h2>Herhangi Otel Tecrübesinden Fazlası ...</h2>
+                                <h1 class="mb-3">Ailen ve Kendin için Kısa bir Mola !</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slider-item" style="background-image:url(/harbor-lights-master/images/bg_2.jpg);">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row no-gutters slider-text align-items-center justify-content-end">
+                        <div class="col-md-6 ftco-animate">
+                            <div class="text">
+                                <h2>Herhangi Otel Tecrübesinden Fazlası ...</h2>
+                                <h1 class="mb-3">Kendine Uygun Oteller bir Tık Uzağında</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="ftco-booking ftco-section ftco-no-pt ftco-no-pb">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-lg-12">
+
+                    <form asp-action="Otel" class="booking-form aside-stretch" asp-controller="Booking" method="post">
+                        <div class="row">
+                            <div class="col-md d-flex py-md-4">
+                                <div class="form-group align-self-stretch d-flex align-items-end">
+                                    <div class="wrap align-self-stretch py-3 px-4">
+                                        <label for="#">Giriş Tarihi</label>
+                                        <input type="text" class="form-control checkin_date" placeholder="Seçiniz" name="checkInDate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md d-flex py-md-4">
+                                <div class="form-group align-self-stretch d-flex align-items-end">
+                                    <div class="wrap align-self-stretch py-3 px-4">
+                                        <label for="#">Çıkış Tarihi</label>
+                                        <input type="text" class="form-control checkout_date" placeholder="Seçiniz" name="checkOutDate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md d-flex py-md-4">
+                                <div class="form-group align-self-stretch d-flex align-items-end">
+                                    <div class="wrap align-self-stretch py-3 px-4">
+                                        <label for="#">Oda Sayısı </label>
+                                        <div class="form-field">
+                                            <div class="select-wrap">
+                                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                <select class="form-control" name="roomNumber">
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md d-flex py-md-4">
+                                <div class="form-group align-self-stretch d-flex align-items-end">
+                                    <div class="wrap align-self-stretch py-3 px-4">
+                                        <label for="#">Yetişkin Sayısı   </label>
+                                        <div class="form-field">
+                                            <div class="select-wrap">
+                                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                <select class="form-control" name="adultNumber">
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" class="form-control" value="@ViewBag.dil" name="dil" />
+                            <div class="col-md d-flex py-md-4">
+                                <div class="form-group align-self-stretch d-flex align-items-end">
+                                    <div class="wrap align-self-stretch py-3 px-4">
+                                        <label for="#">Şehir Giriniz</label>
+                                        <div class="form-field">
+                                            <div class="select-wrap">
+                                            
+                                                <input type="text" class="form-control" name="sehir" style="border:solid 2px  black"  />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+            
+                            <div class="col-md d-flex">
+                                <div class="form-group d-flex align-self-stretch">
+                                    <button type="submit" class="btn btn-primary py-5 py-md-3 px-4 align-self-stretch d-block"><span> <small>İstediğin Otel Bir Tık Yakınında !</small></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center mb-5 pb-3">
+                <div class="col-md-7 heading-section text-center ftco-animate">
+                    <span class="subheading">Tam İhtiyacın Olan Otel Bir Tık Ötende</span>
+                    <h2 class="mb-4">Muhteşem Seçenekler</h2>
+                </div>
+            </div>
+            <div class="row d-flex">
+                <div class="col-md pr-md-1 d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services py-4 d-block text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="flaticon-reception-bell"></span>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="heading mb-3">Olağan Üstü Servis</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md px-md-1 d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services active py-4 d-block text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="flaticon-serving-dish"></span>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="heading mb-3">Kahvaltılı / Kahvaltısız Seçenekleri</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md px-md-1 d-flex align-sel Searchf-stretch ftco-animate">
+                    <div class="media block-6 services py-4 d-block text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="flaticon-car"></span>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="heading mb-3">Servis Çeşitlendirmeleri</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md px-md-1 d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services py-4 d-block text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="flaticon-spa"></span>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="heading mb-3">Sauna / Hamam</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md pl-md-1 d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services py-4 d-block text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="ion-ios-bed"></span>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="heading mb-3">Oda Seçenekleri</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="testimony-section">
+        <div class="container">
+            <div class="row no-gutters ftco-animate justify-content-center">
+                <div class="col-md-5 d-flex">
+                    <div class="testimony-img aside-stretch-2" style="background-image: url(/harbor-lights-master/images/testimony-img.jpg);"></div>
+                </div>
+                <div class="col-md-7 py-5 pl-md-5">
+                    <div class="py-md-5">
+                        <div class="heading-section ftco-animate mb-4">
+                            <span class="subheading">Site Referanslarımız</span>
+                            <h2 class="mb-0">Mutlu Müşteriler</h2>
+                        </div>
+                        <div class="carousel-testimony owl-carousel ftco-animate">
+                            <div class="item">
+                                <div class="testimony-wrap pb-4">
+                                    <div class="text">
+                                        <p class="mb-4">Aradığım oteli basit bir şekilde buldum.Memnun Kaldım.</p>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="user-img" style="background-image: url(/harbor-lights-master/images/person_1.jpg)">
+                                        </div>
+                                        <div class="pos ml-3">
+                                            <p class="name">Ali Küçük</p>
+                                            <span class="position">İş Adamı</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="testimony-wrap pb-4">
+                                    <div class="text">
+                                        <p class="mb-4">Filtrelemeyi yaptım ve en uygun otellerin listesini aldım. Ucuz ve güvenilir oteller buldum .</p>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="user-img" style="background-image: url(/harbor-lights-master/images/person_2.jpg)">
+                                        </div>
+                                        <div class="pos ml-3">
+                                            <p class="name">Murat Akıcı</p>
+                                            <span class="position">Makinist</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="testimony-wrap pb-4">
+                                    <div class="text">
+                                        <p class="mb-4">Çok yere baktım ama bu uygulama işimi çözdü .</p>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="user-img" style="background-image: url(/harbor-lights-master/images/person_3.jpg)">
+                                        </div>
+                                        <div class="pos ml-3">
+                                            <p class="name">Selim Aydın</p>
+                                            <span class="position">Aşçı</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
 
 
-</div>
+
+
+
+
+
+
+
+    <footer class="ftco-footer ftco-section img" style="background-image: url(images/bg_4.jpg);">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Harbor Lights</h2>
+                        <p>Bu uygulama sayesinde aradığım oteli kolayca buldum .</p>
+                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                            <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4 ml-md-5">
+                        <h2 class="ftco-heading-2">Kullanışlı Bağlantılar</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="py-2 d-block">Anasayfa</a></li>
+                            <li><a href="#" class="py-2 d-block">Bazı Oteller</a></li>
+                            <li><a href="#" class="py-2 d-block">Sosyal Sorumlukluklar</a></li>
+                            <li><a href="#" class="py-2 d-block">Hediye Kartı</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Açıklamalar</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="py-2 d-block">Nasıl Çalışır ?</a></li>
+                            <li><a href="#" class="py-2 d-block">Biz kimiz ?</a></li>
+                            <li><a href="#" class="py-2 d-block">Misyonumuz</a></li>
+                            <li><a href="#" class="py-2 d-block">Hizmetlerimiz</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Sorularınız mı var ?</h2>
+                        <div class="block-23 mb-3">
+                            <ul>
+                                <li><span class="icon icon-map-marker"></span><span class="text">İzmir ,Türkiye</span></li>
+                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+                                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+
+    <script src="~/harbor-lights-master/js/jquery.min.js"></script>
+    <script src="~/harbor-lights-master/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="~/harbor-lights-master/js/popper.min.js"></script>
+    <script src="~/harbor-lights-master/js/bootstrap.min.js"></script>
+    <script src="~/harbor-lights-master/js/jquery.easing.1.3.js"></script>
+    <script src="~/harbor-lights-master/js/jquery.waypoints.min.js"></script>
+    <script src="~/harbor-lights-master/js/jquery.stellar.min.js"></script>
+    <script src="~/harbor-lights-master/js/owl.carousel.min.js"></script>
+    <script src="~/harbor-lights-master/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/harbor-lights-master/js/aos.js"></script>
+    <script src="~/harbor-lights-master/js/jquery.animateNumber.min.js"></script>
+    <script src="~/harbor-lights-master/js/bootstrap-datepicker.js"></script>
+    <script src="~/harbor-lights-master/js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="~/harbor-lights-master/js/google-map.js"></script>
+    <script src="~/harbor-lights-master/js/main.js"></script>
+
+</body>
+</html>
+
+

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -12,6 +12,20 @@
 
   <ItemGroup>
     <Folder Include="ViewComponents\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\harbor-lights-master\.DS_Store" />
+    <None Include="wwwroot\harbor-lights-master\css\.DS_Store" />
+    <None Include="wwwroot\harbor-lights-master\css\bootstrap\.DS_Store" />
+    <None Include="wwwroot\harbor-lights-master\css\css\.DS_Store" />
+    <None Include="wwwroot\harbor-lights-master\fonts\.DS_Store" />
+    <None Include="wwwroot\harbor-lights-master\fonts\flaticon\.DS_Store" />
+    <None Include="wwwroot\harbor-lights-master\fonts\ionicons\fonts\.DS_Store" />
+    <None Include="wwwroot\harbor-lights-master\images\.DS_Store" />
+    <None Include="wwwroot\harbor-lights-master\js\.DS_Store" />
+    <None Include="wwwroot\harbor-lights-master\scss\.DS_Store" />
+    <None Include="wwwroot\harbor-lights-master\scss\bootstrap\.DS_Store" />
   </ItemGroup>
 
 </Project>
